@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp .zshrc .p10k.zsh $HOME
+
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
