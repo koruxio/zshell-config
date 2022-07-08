@@ -5,24 +5,20 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-bindkey -v
-unsetopt nomatch
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-PROMPT=$'\n''%B%F{153}%~ ::  | %b%f'
-#PROMPT=$'\n''%B%F{153}%~   | %b%f'
-#PROMPT=$'\n''%B%F{153}%~   | %b%f'
-RPROMPT="[%h]"
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
 
 alias x='startx'
-alias f='xrandr --output eDP --brightness 0.8'
-alias m='xrandr --output eDP --brightness 0.5'
-alias n='xrandr --output eDP --brightness 0.3'
-alias d='xrandr --output eDP --brightness 0.2'
+alias f='xrandr --output eDP-1 --brightness 0.8'
+alias m='xrandr --output eDP-1 --brightness 0.5'
+alias n='xrandr --output eDP-1 --brightness 0.3'
+alias d='xrandr --output eDP-1 --brightness 0.2'
 alias c='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
+alias vim='nvim'
 
 
 push() {  
@@ -99,6 +95,7 @@ export PATH="$PATH:~/.local/bin"
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/miniconda3/bin/activate
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
