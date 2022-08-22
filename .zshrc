@@ -13,10 +13,10 @@ export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 alias x='startx'
-alias f='xrandr --output eDP-1 --brightness 0.8'
-alias m='xrandr --output eDP-1 --brightness 0.5'
-alias n='xrandr --output eDP-1 --brightness 0.3'
-alias d='xrandr --output eDP-1 --brightness 0.2'
+alias f='xrandr --output eDP --brightness 0.8'
+alias m='xrandr --output eDP --brightness 0.5'
+alias n='xrandr --output eDP --brightness 0.3'
+alias d='xrandr --output eDP --brightness 0.2'
 alias c='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 alias vim='nvim'
 
@@ -36,6 +36,17 @@ lock() {
 
 logoff() {
 	pkill -KILL -u $USER
+}
+
+dict() {
+    echo "Defintion for $1"
+
+    RESULT=$(curl -s https://api.dictionaryapi.dev/api/v2/entries/en/$1 | python3 -mjson.tool | grep definition | sed 's/"//g;s/definition//g;s/://g;s/s//g;s/\[//g')
+    SOUND=$(curl -s https://api.dictionaryapi.dev/api/v2/entries/en/$1 | python3 -mjson.tool | grep audio | head -4 | tail -1 | awk '{print $2}' | sed 's/"//g;s/,//g')
+
+    echo $RESULT
+    mpv $SOUND --really-quiet
+
 }
 
 ##Qts
@@ -95,7 +106,23 @@ export PATH="$PATH:~/.local/bin"
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
-source ~/miniconda3/bin/activate
+# source ~/miniconda3/bin/activate  # commented out by conda initialize
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/sarosx/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/sarosx/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/sarosx/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/sarosx/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
